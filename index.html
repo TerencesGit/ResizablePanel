@@ -6,11 +6,15 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="panel">
+	<div id="ui-resizable" class="panel">
 		<div class="panel-title">Resizable Panel</div>
-		<div class="ui-resizable-right"></div>
+		<!-- <div class="ui-resizable-right"></div>
 		<div class="ui-resizable-bottom"></div>
-		<div class="ui-resizable-rightBottom"></div>
+		<div class="ui-resizable-rightBottom"></div> -->
 	</div>
+	<script src="js/main.js"></script>
+	<script>
+		Resizable('ui-resizable');
+	</script>
 </body>
 </html>
