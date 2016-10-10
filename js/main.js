@@ -18,14 +18,18 @@
 			var to_y = m_to_y - m_start_y;
 			switch(m_type){
 				case 'right':
-				 m_ctrl.style.left = to_x + 'px';
+				 m_ctrl.style.left = to_x+'px';
+				 m_panel.style.width = to_x+10+'px'
 				break;
 				case 'bottom':
 					m_ctrl.style.top = to_y + 'px';
+					m_panel.style.height = to_y+10+'px'
 				break;
 				case 'rightBottom':
 					m_ctrl.style.left = to_x + 'px';
 					m_ctrl.style.top = to_y + 'px';
+					m_panel.style.width = to_x+10+'px';
+					m_panel.style.height = to_y+10+'px'
 				break;
 			}	
 		}
@@ -38,7 +42,12 @@
 	document.onmouseup = function(){
 		clearInterval(moving)
 		moving = 0;
-	}
+		var clas = document.getElementsByClassName('ui-resizable-ctrl')
+		for(var i = 0;i<clas.length;i++){
+			clas[i].style.left = '';
+			clas[i].style.top = ''
+		}
+	} 
 	function Resizable(panel_id){
 		var panel = document.getElementById(panel_id);
 		var right = document.createElement('div');
