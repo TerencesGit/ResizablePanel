@@ -14,8 +14,14 @@
 	}
 	function on_move(){
 		if(moving){
+			var min_left = m_panel.offsetLeft+50;
+			var min_top = m_panel.offsetTop+50;
+
 			var to_x = m_to_x - m_start_x;
 			var to_y = m_to_y - m_start_y;
+			to_x = Math.max(to_x, min_left);
+			to_y = Math.max(to_y, min_top);
+			console.log(to_x, to_y)
 			switch(m_type){
 				case 'right':
 				 m_ctrl.style.left = to_x+'px';
@@ -45,7 +51,7 @@
 		var clas = document.getElementsByClassName('ui-resizable-ctrl')
 		for(var i = 0;i<clas.length;i++){
 			clas[i].style.left = '';
-			clas[i].style.top = ''
+			clas[i].style.top = '';
 		}
 	} 
 	function Resizable(panel_id){
