@@ -40,20 +40,7 @@
 			}	
 		}
 	}
-	document.onmousemove = function(e){
-		var e = e || window.event;
-		m_to_x = e.pageX;
-		m_to_y = e.pageY;
-	}
-	document.onmouseup = function(){
-		clearInterval(moving)
-		moving = 0;
-		var clas = document.getElementsByClassName('ui-resizable-ctrl')
-		for(var i = 0;i<clas.length;i++){
-			clas[i].style.left = '';
-			clas[i].style.top = '';
-		}
-	} 
+
 	function Resizable(panel_id){
 		var panel = document.getElementById(panel_id);
 		var right = document.createElement('div');
@@ -91,8 +78,10 @@
 			mouseOffsetY = e.pageY - dragPanel.offsetTop;
 			isDraging = true;
 	})
-	dragTitle.addEventListener('mousemove',function(e){
+ 	document.onmousemove = function(e){
 		var e = e || window.event;
+		m_to_x = e.pageX;
+		m_to_y = e.pageY;
 		var mouseX = e.clientX,
 		    mouseY = e.clientY,
 				moveX = 0,
@@ -100,11 +89,26 @@
 		if(isDraging === true){
 			moveX = mouseX - mouseOffsetX;
 			moveY = mouseY - mouseOffsetY;
+			var pageWidth = document.documentElement.clientWidth,
+			    pageHeight = document.documentElement.clientHeight;
+			var panelWidth = dragPanel.offsetWidth,
+					panelHeight = dragPanel.offsetHeight;
+			var maxX = pageWidth - panelWidth,
+					maxY = pageHeight - panelHeight;
+					console.log(maxX)
+			moveX = Math.min(maxX, Math.max(0, moveX));
+			moveY = Math.min(maxY, Math.max(0, moveY));		
 			dragPanel.style.left = moveX + 'px';
 			dragPanel.style.top = moveY + 'px';
 		}
-	})
-	dragPanel.addEventListener('mouseup',function(){
-		isDraging = false
-	})
- 	
+	}
+	document.onmouseup = function(){
+		clearInterval(moving)
+		moving = 0;
+		var clas = document.getElementsByClassName('ui-resizable-ctrl')
+		for(var i = 0;i<clas.length;i++){
+			clas[i].style.left = '';
+			clas[i].style.top = '';
+			isDraging = false
+		}
+	} 
