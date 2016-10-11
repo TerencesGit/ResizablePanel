@@ -76,4 +76,35 @@
 			onmousedown(e,panel,rightBottom,'rightBottom')
 		})
 	}
+	// 标题栏可拖拽
+	function $(ele){
+		return document.querySelectorAll(ele)
+	}
+	var dragTitle = $('.panel-title')[0],
+	    dragPanel = $('#ui-resizable')[0];
+	var mouseOffsetX = 0,
+	    mouseOffsetY = 0;
+	var isDraging = false;
+	dragTitle.addEventListener('mousedown', function(e){
+			var e = e || window.event;
+			mouseOffsetX = e.pageX - dragPanel.offsetLeft;
+			mouseOffsetY = e.pageY - dragPanel.offsetTop;
+			isDraging = true;
+	})
+	dragTitle.addEventListener('mousemove',function(e){
+		var e = e || window.event;
+		var mouseX = e.clientX,
+		    mouseY = e.clientY,
+				moveX = 0,
+		 		moveY = 0;
+		if(isDraging === true){
+			moveX = mouseX - mouseOffsetX;
+			moveY = mouseY - mouseOffsetY;
+			dragPanel.style.left = moveX + 'px';
+			dragPanel.style.top = moveY + 'px';
+		}
+	})
+	dragPanel.addEventListener('mouseup',function(){
+		isDraging = false
+	})
  	
